@@ -1,0 +1,33 @@
+
+# dev environment activation script.
+# use this by doing 'source activate'
+#
+# Copyright (c) 2016 Florian Tautz <dev@nyronet.de>
+
+WORKDIR='/home/florian/uni/rpi2'
+
+deactivate () {
+    cd $_OLD_WORKDIR
+    unset _OLD_WORKDIR
+
+    export PS1=$_OLD_PS1
+    unset _OLD_PS1
+
+    export PATH=$_OLD_PATH
+    unset _OLD_PATH
+
+    unset deactivate
+}
+
+export _OLD_PATH=$PATH
+export PATH=$WORKDIR/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin:$PATH
+
+export _OLD_PS1=$PS1
+PS1="(pidev) "$PS1
+
+export CROSS_COMPILE=arm-linux-gnueabihf-
+export ARCH=arm
+
+export _OLD_WORKDIR=`pwd`
+cd $WORKDIR
+
